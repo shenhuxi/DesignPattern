@@ -1,25 +1,20 @@
-package com.zpself.module.适配器模式一.demo1_ObjectAdapter;
+package com.zpself.module.适配器模式一.demo1_InterfaceAdapter;
 
 
-public class Adapter implements Targetable{
-    private Source obj ;
-    public Adapter(Source source){
-        super();
-        this.obj = source;
-    }
+public class Adapter extends  Source {
 
     @Override
     public void method1() {
-        obj.method1();
+        System.out.println("调用了Adapter的方法：method2");
     }
 
     @Override
     public void method2() {
-        System.out.println("Targetable调用了接口的方法：method2");
+        System.out.println("调用了Adapter的方法：method2");
     }
 
     public static void main(String[] args) {
-        Targetable  adapter= new Adapter(new Source());
+        Targetable adapter= new Adapter();
         adapter.method1();
         adapter.method2();
     }

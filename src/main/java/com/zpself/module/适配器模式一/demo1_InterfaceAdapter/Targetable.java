@@ -1,4 +1,4 @@
-package com.zpself.module.适配器模式一.demo1_ObjectAdapter;
+package com.zpself.module.适配器模式一.demo1_InterfaceAdapter;
 
 public interface Targetable {
     public abstract void method1();

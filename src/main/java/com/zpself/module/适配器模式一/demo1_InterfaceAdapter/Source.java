@@ -1,7 +1,11 @@
-package com.zpself.module.适配器模式一.demo1_ObjectAdapter;
+package com.zpself.module.适配器模式一.demo1_InterfaceAdapter;
 
-public class Source {
+public abstract class Source implements Targetable{
+    @Override
     public void method1() {
-        System.out.println("this is Source method!");
+    }
+
+    @Override
+    public void method2() {
     }
 }
