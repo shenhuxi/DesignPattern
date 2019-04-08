@@ -1,10 +1,20 @@
-package com.zpself.module.装饰模式一咖啡厅.cofferbar.coffee;
+package com.zpself.module.装饰模式一咖啡厅.cofferbar.decorator;
 
 import com.zpself.module.装饰模式一咖啡厅.cofferbar.Drink;
 
-public class Coffer extends Drink {
+public class Decorator extends Drink {//装饰者
+    private Drink obj;
+
+    public  Decorator(Drink obj){
+        this.obj = obj;
+    }
     @Override
     public float cost() {
-        return super.getPrice();
+        return super.getPrice()+obj.cost();
+    }
+
+    @Override
+    public String getDescription() {
+        return description+"价格:"+this.getPrice() +"&&"+obj.getDescription();
     }
 }
