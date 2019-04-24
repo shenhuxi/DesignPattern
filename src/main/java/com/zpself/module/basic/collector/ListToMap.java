@@ -15,18 +15,26 @@ import java.util.stream.Stream;
  */
 public class ListToMap {
     public static void main(String[] args) {
-
+        listToMap();
     }
 
     /**
-     * list转换map
+     * list<Object>的两个属性  转换成map键值对
      */
     public  static  void listToMap(){
-        ArrayList<Person> list = Lists.newArrayList(new Person("王五","王大五，王二五，王二百五"),new Person("李四","李四1，李四2，李四3"));
-        Map map  = new HashMap();
+        ArrayList<Person> list = Lists.newArrayList(
+                new Person("王五","王大五，王二五，王二百五"),
+                new Person("李四","李四1，李四2，李四3"));
+        //方法一
+        Map<String, String> sortNoOrgNameMap =
+                list.stream().collect(Collectors.toMap(Person::getName, Person::getRename, (key1, key2) -> key2));
+
+        System.out.println(sortNoOrgNameMap.toString());
+        //方法二
+        /*Map map  = new HashMap();
         for (Person person : list) {
             map.put(person.getName(),person.getRename());
-        }
+        }*/
     }
 
     /**
