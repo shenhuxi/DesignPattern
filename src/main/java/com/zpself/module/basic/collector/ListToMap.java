@@ -27,7 +27,7 @@ public class ListToMap {
                 new Person("李四","李四1，李四2，李四3"));
         //方法一
         Map<String, String> sortNoOrgNameMap =
-                list.stream().collect(Collectors.toMap(Person::getName, Person::getRename, (key1, key2) -> key2));
+                list.stream().collect(Collectors.toMap(Person::getName, Person::getSex, (key1, key2) -> key2));
 
         System.out.println(sortNoOrgNameMap.toString());
         //方法二

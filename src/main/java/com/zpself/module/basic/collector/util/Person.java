@@ -10,8 +10,19 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Person {
+    /**
+     *  名称
+     */
     private String name;
-    private String rename;
+
+    /**
+     *  别名
+     */
+    private String sex;
+    /**
+     *
+     年龄
+     */
     private int age;
 
     public String getName() {
@@ -22,12 +33,12 @@ public class Person {
         this.name = name;
     }
 
-    public String getRename() {
-        return rename;
+    public String getSex() {
+        return sex;
     }
 
-    public void setRename(String rename) {
-        this.rename = rename;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public int getAge() {
@@ -38,8 +49,13 @@ public class Person {
         this.age = age;
     }
 
-    public Person(String name, String rename) {
+    public Person(String name, String sex,int age) {
         this.name = name;
-        this.rename = rename;
+        this.sex = sex;
+        this.age=age;
+    }
+    public Person(String name, String sex) {
+        this.name = name;
+        this.sex = sex;
     }
 }
