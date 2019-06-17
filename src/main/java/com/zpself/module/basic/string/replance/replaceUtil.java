@@ -20,7 +20,7 @@ public class replaceUtil {
      */
     private static void replace(){
         //step1 准备参数
-        String target = "getValue({year}人大{year},财政收入{income})";
+        String target = "getValue({year}人大{year},财政收入{income},{income123},{income678})";
         // String target = "getValue(2019,123,1000000)";
 
         Map<String,String> map = new HashMap<>(2);
@@ -33,9 +33,7 @@ public class replaceUtil {
         Pattern pattern = Pattern.compile(rgex);
         Matcher m = pattern.matcher(target);
         while (m.find()) {
-            int i = 1;
-            set.add("{"+m.group(i)+"}");
-            i++;
+            set.add(m.group());
         }
         System.out.println(set);
 
