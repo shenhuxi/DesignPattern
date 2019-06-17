@@ -11,16 +11,16 @@ import java.util.stream.Collectors;
  */
 public class FindNumber {
     public static void main(String[] args) {
-        List<Integer> numbers = Lists.newArrayList(0,1,3,3,7,9,12,33,35,51,52,53,56,60);//8
-        List<Integer> numbersAbs = Lists.newArrayList(8,7,5,5,1,1,4,25,27,43,44,45,48,52);//25
-        int number = 8;
+        List<Integer> numbers = Lists.newArrayList(0,1,3,3,7,8,9,12,33,35,51,52,53,56,60);//8
+        List<Integer> numbersAbs = Lists.newArrayList(8,7,5,5,1,2,4,25,27,43,44,45,48,52);//25
+        int number = 57;
         //System.out.println(findMiniDifferenceNumbers(numbers,number));
-        System.out.println(findMiniDifferenceNumbersTwo(numbers,number));
+        //System.out.println(findMiniDifferenceNumbersTwo(numbers,number));
         System.out.println(findMiniDifferenceNumbersThree(numbers,number));
     }
 
     /**
-     * 3.通过二分法时间复杂度  （n）
+     * 3.通过二分法时间复杂度  （n+3）
      * @param list 目标list
      * @param findValue 目标值
      * @return 结果list
@@ -28,30 +28,42 @@ public class FindNumber {
     private static List<Integer>  findMiniDifferenceNumbersThree(List<Integer> list, int findValue){
         if(list==null || list.isEmpty()) {return null;}
         //step1 求出list与差值的新集合
-        List<Integer> newList = list.stream().map(numb -> numb - findValue).collect(Collectors.toList());
-
-        //step2 二分法遍历得到绝对值最小的
+        List<Integer> result = new ArrayList<>(2);
+        //step2 二分法遍历得到最接近findValue的下表
         int start = 0;
         int end = list.size()-1;
-        int change = Math.abs(list.get(0) - findValue);
-
+        int change = 0;
         while (start<=end){
             int middle = (start+end)/2;
-
-            int middleValue = Math.abs(list.get(middle) - findValue);
+            int middleValue = list.get(middle);
             if (middleValue==findValue){
-                return null;
+                result.add(findValue);
+                break;
             }else{
                 if(middleValue<findValue) {
                     start = middle+1;
                 }else {
                     end = middle-1;
                 }
+                change= middle;
             }
         }
+        //step3 判断是否有找到值，没找到则判断最后遍历附近值
+        if(result.isEmpty()){
+            int min = Math.abs(list.get(change - 1) - findValue);
+            int middle = Math.abs(list.get(change) - findValue);
+            int target = Math.min(min, middle);
 
-        //step3 遍历查找 为min值的对象
-        return null;
+            if(change + 1<list.size()){
+                int max =Math.abs(list.get(change + 1) - findValue);
+                target = Math.min(target, max);
+                if(target==max){result.add(list.get(change + 1));}
+            }
+            if(target==middle){result.add(list.get(change ));}
+            if(target==min){result.add(list.get(change - 1));}
+
+        }
+        return result;
     }
 
     /**
