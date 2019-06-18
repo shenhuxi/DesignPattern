@@ -2,6 +2,7 @@ package com.zpself;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,12 +16,17 @@ public class WebApplication {
         SpringApplication.run(WebApplication.class, args);
     }
 
-    @PostMapping("/upload")//上传
+    /**
+     * 上传
+     */
+    @GetMapping("/upload")
     public String upload(){
         return "upload";
     }
-
-    @PostMapping("/download")//下载
+    /**
+     * 下载
+     */
+    @GetMapping("/download")
     public String download() throws Exception{
         return "download";
     }

@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
  */
 public class FindNumber {
     public static void main(String[] args) {
-        List<Integer> numbers = Lists.newArrayList(0,1,3,3,7,8,9,12,33,35,51,52,53,56,60);//8
+        List<Integer> numbers = Lists.newArrayList(0,1,3,3,7,9,12,33,35,51,52,53,56,60);//8
         List<Integer> numbersAbs = Lists.newArrayList(8,7,5,5,1,2,4,25,27,43,44,45,48,52);//25
-        int number = 57;
+        int number = 8;
         //System.out.println(findMiniDifferenceNumbers(numbers,number));
-        //System.out.println(findMiniDifferenceNumbersTwo(numbers,number));
-        System.out.println(findMiniDifferenceNumbersThree(numbers,number));
+       System.out.println(findMiniDifferenceNumbersTwo(numbers,number));
+        //System.out.println(findMiniDifferenceNumbersThree(numbers,number));
     }
 
     /**
@@ -27,12 +27,11 @@ public class FindNumber {
      */
     private static List<Integer>  findMiniDifferenceNumbersThree(List<Integer> list, int findValue){
         if(list==null || list.isEmpty()) {return null;}
-        //step1 求出list与差值的新集合
         List<Integer> result = new ArrayList<>(2);
-        //step2 二分法遍历得到最接近findValue的下表
+        //step1 二分法遍历得到最接近findValue的下标
         int start = 0;
         int end = list.size()-1;
-        int change = 0;
+        int targetPoint = 0;
         while (start<=end){
             int middle = (start+end)/2;
             int middleValue = list.get(middle);
@@ -45,22 +44,22 @@ public class FindNumber {
                 }else {
                     end = middle-1;
                 }
-                change= middle;
+                targetPoint= middle;
             }
         }
-        //step3 判断是否有找到值，没找到则判断最后遍历附近值
+        //step2 判断是否有找到值，没找到则判断最后遍历附近值
         if(result.isEmpty()){
-            int min = Math.abs(list.get(change - 1) - findValue);
-            int middle = Math.abs(list.get(change) - findValue);
+            int min = Math.abs(list.get(targetPoint - 1) - findValue);
+            int middle = Math.abs(list.get(targetPoint) - findValue);
             int target = Math.min(min, middle);
-
-            if(change + 1<list.size()){
-                int max =Math.abs(list.get(change + 1) - findValue);
+            //step3 防止下标越界
+            if(targetPoint + 1<list.size()){
+                int max =Math.abs(list.get(targetPoint + 1) - findValue);
                 target = Math.min(target, max);
-                if(target==max){result.add(list.get(change + 1));}
+                if(target==max){result.add(list.get(targetPoint + 1));}
             }
-            if(target==middle){result.add(list.get(change ));}
-            if(target==min){result.add(list.get(change - 1));}
+            if(target==middle){result.add(list.get(targetPoint ));}
+            if(target==min){result.add(list.get(targetPoint - 1));}
 
         }
         return result;
