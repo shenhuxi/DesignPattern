@@ -16,10 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ExceptionAdvice {
 
-    @ExceptionHandler({ Exception.class })
+    @ExceptionHandler({ HttpStatusException.class })
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_GATEWAY)
-    public String handException(HttpServletRequest request , Exception e) throws Exception {
+    public String handException(HttpServletRequest request , HttpStatusException e) throws Exception {
         e.printStackTrace();
         if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null){
             throw e;
