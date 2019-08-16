@@ -10,11 +10,31 @@ public class replaceUtil {
     public static void main(String[] args) {
         //String s = changeExpression("get(部门,`审查阶段:年初预算`,`数据类型:支出`,年份)", new HashMap<>(2));
         //replaceTwo();
-        replaceThree();
-
+        replaceFour();
+String s = "12345(";
+        System.out.println(s.replace("(","\\\\("));
         //sliptString("一般公共预算(审查阶段()：年初预算，功能科目名称：税收收入)");
     }
-
+    /**
+     *     @ 税收收入
+     * #支付金额函数(月份:Between(1,{月份}))
+     */
+    private static void replaceFour() {
+        //StringBuilder sb = new StringBuilder("BaseFunction( mt_rd_exam_jingdezhen.mt_rd_data_general_budget_last_year_execution,SUM\u0015execution_this_year\u0015,year\u0014年份,data_scope\u0014市本级,exam_stage\u0014大会审议,exam_theme\u0014收入,budget_book\u0014一般公共预算) / BaseFunction( mt_rd_exam_jingdezhen.mt_rd_data_general_budget_last_year_execution,SUM\u0015budget_this_year\u0015,year\u00142019,data_scope\u0014市本级,exam_stage\u0014大会审议,exam_theme\u0014收入,budget_book\u0014一般公共预算) * 100 ");
+        StringBuilder sb = new StringBuilder("1+1");
+        String regex = "BaseFunction(.+?)[)]";
+        List<String> list = new ArrayList<>(16);
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(sb);
+        while (matcher.find()) {
+            String group = matcher.group();
+            list.add(group);
+        }
+        for (int i=list.size()-1;i>=0; i--) {
+            String integer = list.get(i);
+            System.out.println(integer);
+        }
+    }
     private static void sliptString(String s) {
         String name = s.substring(s.indexOf("(")+1,s.lastIndexOf(")"));
         System.out.println(name);
