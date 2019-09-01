@@ -6,6 +6,8 @@ package com.zpself.module.basic.booleanUtil;
  */
 public class BooleanTest {
     public static void main(String[] args) {
+        System.out.println(Long.MAX_VALUE);
+
         BooleanTest test = new BooleanTest();
         Boolean b=true;
         test.changB(b);
