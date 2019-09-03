@@ -1,4 +1,4 @@
-package com.zpself.module.basic;
+package com.zpself.module.basic.重载;
 
 /**
  * 函数名称相同，参数不同[个数或者类型]  就算重载
@@ -6,7 +6,9 @@ package com.zpself.module.basic;
  * @author zengpeng
  * @date 2019/9/1
  */
-public class 重载 {
+public class OverLoad {
+    //@Override
+
     public void  test(int a,String b){
     }
     public void  test(String b,int a){
