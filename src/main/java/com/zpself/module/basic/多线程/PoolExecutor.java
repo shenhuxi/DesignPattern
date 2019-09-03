@@ -19,7 +19,7 @@ public class PoolExecutor {
      */
     public static ThreadPoolExecutor getInstance(){
         if(threadPool ==null){
-            threadPool  = new ThreadPoolExecutor(1, 1, 15,
+            threadPool  = new ThreadPoolExecutor(4, 4, 15,
                     TimeUnit.SECONDS, new LinkedBlockingQueue<>(),
                     new ThreadPoolExecutor.CallerRunsPolicy());
             threadPool.prestartAllCoreThreads();
