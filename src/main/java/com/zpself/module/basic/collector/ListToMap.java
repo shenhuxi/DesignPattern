@@ -25,6 +25,9 @@ public class ListToMap {
         ArrayList<Person> list = Lists.newArrayList(
                 new Person("王五","王大五，王二五，王二百五"),
                 new Person("李四","李四1，李四2，李四3"));
+        ArrayList<Person> list2 = Lists.newArrayList(
+                new Person("王五","王大五，王二五，王二百五"),
+                new Person("李四","李四1，李四2，李四3"));
         //方法一
         Map<String, String> sortNoOrgNameMap =
                 list.stream().collect(Collectors.toMap(Person::getName, Person::getSex, (key1, key2) -> key2));

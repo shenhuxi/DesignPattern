@@ -14,7 +14,8 @@ public class ArrayChangeCollection {
         System.out.println(integers);
 
         Integer[] integers1 = integers.toArray(new Integer[1]);
-        for (Integer integer : integers1) {
+        Integer[] integers2 = (Integer[]) integers.toArray();
+        for (Integer integer : integers2) {
             System.out.println(integer);
         }
     }
