@@ -1,4 +1,4 @@
-package com.zpself.module.动态代理.proxy.entity;
+package com.zpself.module.动态代理.entity;
 
 import lombok.Data;
 

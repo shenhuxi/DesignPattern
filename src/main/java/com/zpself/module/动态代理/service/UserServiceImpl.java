@@ -1,4 +1,4 @@
-package com.zpself.module.动态代理.proxy;
+package com.zpself.module.动态代理.service;
 
 import com.zpself.module.动态代理.entity.User;
 
