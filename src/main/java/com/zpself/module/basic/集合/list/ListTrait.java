@@ -26,6 +26,7 @@ public class ListTrait {
         list.add(1,"2");//IndexOutOfBoundsException
         //list.addAll(null);
         //list.retainAll(null);
+        list.size();
         System.out.println(list.size());
 
         //5.序列化
