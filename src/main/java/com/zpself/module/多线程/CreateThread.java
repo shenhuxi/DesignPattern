@@ -1,4 +1,4 @@
-package com.zpself.module.basic.多线程;
+package com.zpself.module.多线程;
 
 import java.util.concurrent.ThreadPoolExecutor;
 

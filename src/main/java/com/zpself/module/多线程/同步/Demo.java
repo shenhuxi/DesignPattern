@@ -1,4 +1,4 @@
-package com.zpself.module.basic.多线程.同步;
+package com.zpself.module.多线程.同步;
 
 /**
  * @author zengpeng

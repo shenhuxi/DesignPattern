@@ -2,6 +2,8 @@ package com.zpself;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +21,8 @@ public class WebApplication {
      * 上传
      */
     @GetMapping("/upload")
-    public String upload(){
+    public String upload(ServerHttpRequest request){
+        ServerHttpRequest request2 = request.mutate().header("ssa", "sds").build();
         return "upload";
     }
     /**

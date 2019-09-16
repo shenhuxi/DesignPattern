@@ -1,7 +1,7 @@
-package com.zpself.module.basic.多线程.同步.死锁;
+package com.zpself.module.多线程.同步.死锁;
 
-import com.zpself.module.basic.多线程.PoolExecutor;
-import com.zpself.module.basic.多线程.同步.Demo;
+import com.zpself.module.多线程.PoolExecutor;
+import com.zpself.module.多线程.同步.Demo;
 
 import java.util.concurrent.ThreadPoolExecutor;
 

@@ -1,7 +1,11 @@
 package com.zpself.module.basic.集合.list;
 
+import com.sun.javafx.UnmodifiableArrayList;
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author zengpeng
@@ -23,6 +27,9 @@ public class ListTrait {
 
         //4.add方法
         list.add("1");
+        List list1 = Collections.unmodifiableList(list);
+        List list2 = new UnmodifiableArrayList(list.toArray(),list.size());
+        list2.add(1);
         list.add(1,"2");//IndexOutOfBoundsException
         //list.addAll(null);
         //list.retainAll(null);
