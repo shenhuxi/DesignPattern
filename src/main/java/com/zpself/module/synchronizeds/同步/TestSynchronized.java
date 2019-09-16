@@ -1,6 +1,6 @@
-package com.zpself.module.多线程.同步;
+package com.zpself.module.duoxiancheng.同步;
 
-import com.zpself.module.多线程.PoolExecutor;
+import com.zpself.module.duoxiancheng.PoolExecutor;
 
 import java.util.concurrent.ThreadPoolExecutor;
 

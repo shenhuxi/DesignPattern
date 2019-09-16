@@ -1,7 +1,7 @@
-package com.zpself.module.多线程.同步.火车票;
+package com.zpself.module.duoxiancheng.同步.火车票;
 
-import com.zpself.module.多线程.PoolExecutor;
-import com.zpself.module.多线程.同步.Demo;
+import com.zpself.module.duoxiancheng.PoolExecutor;
+import com.zpself.module.duoxiancheng.同步.Demo;
 import lombok.Data;
 
 import java.util.concurrent.ThreadPoolExecutor;

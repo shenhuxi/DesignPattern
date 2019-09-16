@@ -1,6 +1,5 @@
-package com.zpself.module.多线程.callable;
+package com.zpself.module.duoxiancheng.callable;
 
-import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
