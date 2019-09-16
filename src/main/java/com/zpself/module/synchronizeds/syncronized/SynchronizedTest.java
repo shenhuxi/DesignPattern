@@ -1,6 +1,6 @@
-package com.zpself.module.aa.syncronized;
+package com.zpself.module.synchronizeds.syncronized;
 
-public class SynchronizedTest implements  {
+public class SynchronizedTest {
     public synchronized void test1(){
 
     }
