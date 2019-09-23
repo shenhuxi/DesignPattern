@@ -20,7 +20,11 @@ public class CookieController {
 
 
     @GetMapping("/create")
-    public String create(HttpServletRequest request){
+    public String create(HttpServletRequest request) throws ClassNotFoundException {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        ClassLoader pParent = classLoader.getParent();
+        Class<?> aClass = classLoader.loadClass("com.zpself.module.basic.integer.String");
+
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
         Cookie ck1= new Cookie("username","李四");
         Cookie ck2= new Cookie("age","25");

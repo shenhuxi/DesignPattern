@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class Integers {
     public static void main(String[] args) {
+
         //第二位进来与第一位比较，大与0  排在左边，小于0排在右边
         Comparator<Integer> swan = new Comparator<Integer>() {
             @Override

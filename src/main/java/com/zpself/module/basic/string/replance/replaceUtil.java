@@ -7,7 +7,10 @@ import java.util.regex.Pattern;
  * @date 2019/6/10
  */
 public class replaceUtil {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
+
+        Object.class.getClassLoader().loadClass("com.zpself.module.basic.integer.String");
+
         //String s = changeExpression("get(部门,`审查阶段:年初预算`,`数据类型:支出`,年份)", new HashMap<>(2));
         //replaceTwo();
         replaceFour();
