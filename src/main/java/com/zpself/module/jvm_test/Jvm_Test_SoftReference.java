@@ -3,7 +3,7 @@ package com.zpself.module.jvm_test;
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
-
+//VM options -Xmx80m -Xms80m -Xmn20m -Xss128k -XX:+UseConcMarkSweepGC
 public class Jvm_Test_SoftReference {
     public final Integer a= 10;
     private static List<Object> list = new ArrayList<>();
