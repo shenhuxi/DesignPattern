@@ -1,10 +1,12 @@
-package com.zpself.module.duoxiancheng.callable;
+package com.zpself.module.synchronizeds.callable;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class Callable_Test {
+    private static ThreadPoolExecutor threadPool = com.zpself.module.duoxiancheng.PoolExecutor.getInstance();
     public static void main(String[] args) {
         Runnable r =() -> {
             System.out.println("执行了runable线程--stat");
@@ -25,6 +27,7 @@ public class Callable_Test {
             return "Callable结果";
         };
         FutureTask<String> future = new FutureTask<>(c);
+        threadPool.execute(future);
         new Thread(future,"有返回值的线程").start();
 
         try {

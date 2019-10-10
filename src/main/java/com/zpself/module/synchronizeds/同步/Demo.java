@@ -1,4 +1,4 @@
-package com.zpself.module.duoxiancheng.同步;
+package com.zpself.module.synchronizeds.同步;
 
 /**
  * @author zengpeng

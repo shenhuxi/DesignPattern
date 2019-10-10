@@ -1,5 +1,7 @@
 package com.zpself.module.basic.cookie_session;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jdk.nashorn.internal.ir.RuntimeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -16,10 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController()
 @RequestMapping("/cookie")
+@Api(value="cookie_controller",tags={"cookie操作接口"})
 public class CookieController {
 
 
     @GetMapping("/create")
+    @ApiOperation(value="create_Cookie", notes="创建Cookie")
     public String create(HttpServletRequest request) throws ClassNotFoundException {
         ClassLoader classLoader = this.getClass().getClassLoader();
         ClassLoader pParent = classLoader.getParent();
@@ -36,6 +40,7 @@ public class CookieController {
     }
 
     @PostMapping("/getCookie")
+    @ApiOperation(value="get_Cookie", notes="获取Cookie")
     public String create2(HttpServletRequest request){
         Cookie[] ck_sum= request.getCookies();
         return "upload";

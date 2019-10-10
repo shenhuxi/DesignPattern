@@ -1,4 +1,4 @@
-package com.zpself.module.duoxiancheng.线程池.newFixedThreadPool;
+package com.zpself.module.synchronizeds.线程池.newFixedThreadPool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

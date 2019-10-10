@@ -14,4 +14,9 @@ public class Person {
     }
 
     public int age=20;
+
+    public static void main(String[] args) {
+
+        Person person = new Person();
+    }
 }

@@ -1,7 +1,6 @@
-package com.zpself.module.duoxiancheng.同步.死锁;
+package com.zpself.module.synchronizeds.同步.死锁;
 
-import com.zpself.module.duoxiancheng.PoolExecutor;
-import com.zpself.module.duoxiancheng.同步.Demo;
+import com.zpself.module.synchronizeds.同步.Demo;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -10,7 +9,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @date 2019/9/3
  */
 public class CreateDieKey {
-    private static ThreadPoolExecutor threadPool = PoolExecutor.getInstance();
+    private static ThreadPoolExecutor threadPool = com.zpself.module.duoxiancheng.PoolExecutor.getInstance();
     static final Demo KEY1 = new Demo();
     static final Demo KEY2 = new Demo();
 

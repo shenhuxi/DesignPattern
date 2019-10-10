@@ -1,7 +1,6 @@
-package com.zpself.module.duoxiancheng.同步;
+package com.zpself.module.synchronizeds.同步;
 
 import com.zpself.module.duoxiancheng.PoolExecutor;
-
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
