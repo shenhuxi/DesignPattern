@@ -16,6 +16,7 @@ public class ListTrait {
         //ArrayList<String> list1 = Lists.newArrayList("王五","王大五","王二五","王二百五");
         //ArrayList<String> list2 = Lists.newArrayList("王五","王tai五");
         ArrayList list = new ArrayList();
+        Collections.sort(list);
         //1.集合交集
        // boolean b = list1.retainAll(list2);
 
