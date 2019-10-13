@@ -53,4 +53,17 @@ public class LoginController {
     public String printUser() {
         return "如果你看见这句话，说明你有ROLE_USER角色";
     }
+
+    @RequestMapping("/userCreate")
+    @ResponseBody
+    @PreAuthorize("hasPermission('user','_create')")
+        public String userCreate() {
+        return "如果你看见这句话，说明你有用户_create权限";
+    }
+    @RequestMapping("/userDelete")
+    @ResponseBody
+    @PreAuthorize("hasPermission('user','_delete')")
+    public String userDelete() {
+        return "如果你看见这句话，说明你有用户Delete权限";
+    }
 }

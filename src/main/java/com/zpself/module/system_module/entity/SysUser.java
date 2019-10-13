@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * 用户
- * @author shixh
+ * @author zengpeng
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -63,5 +63,5 @@ public class SysUser extends BaseEntity {
 
     @ApiModelProperty("角色集合")
     @ManyToMany
-    private List<Role> roles;
+    private List<SysRole> roles;
 }
