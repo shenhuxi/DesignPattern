@@ -3,6 +3,7 @@ package com.zpself.module.springSecurity;
 import com.zpself.module.springSecurity.authenticationResultHandler.CustomAuthenticationFailureHandler;
 import com.zpself.module.springSecurity.authenticationResultHandler.CustomAuthenticationSuccessHandler;
 import com.zpself.module.springSecurity.authenticationResultHandler.CustomExpiredSessionStrategy;
+import com.zpself.module.springSecurity.authenticationResultHandler.CustomLogoutSuccessHandler;
 import com.zpself.module.springSecurity.verify.VerifyFilter;
 import com.zpself.module.springSecurity.verify.VerifyServlet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -31,13 +34,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
     private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
-
+    private final CustomLogoutSuccessHandler logoutSuccessHandler;
     @Autowired
-    public WebSecurityConfig(CustomAuthenticationFailureHandler customAuthenticationFailureHandler, CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler, CustomUserDetailsService userDetailsService, DataSource dataSource) {
+    public WebSecurityConfig(CustomAuthenticationFailureHandler customAuthenticationFailureHandler, CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler, CustomUserDetailsService userDetailsService, DataSource dataSource, CustomLogoutSuccessHandler logoutSuccessHandler) {
         this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
         this.customAuthenticationSuccessHandler = customAuthenticationSuccessHandler;
         this.userDetailsService = userDetailsService;
         this.dataSource = dataSource;
+        this.logoutSuccessHandler = logoutSuccessHandler;
     }
 
     /**
@@ -70,9 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/getVerifyCode","/login/invalid").permitAll()
 //                .antMatchers().permitAll()
                 .anyRequest().authenticated()
-                .and()
-
                 // -----------------------设置登陆--------------------
+                .and()
                 .formLogin().loginPage("/login")
                 // 设置登陆成功页
 //                .defaultSuccessUrl("/")
@@ -94,7 +97,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     // 有效时间：单位s
                     .tokenValiditySeconds(600)
                     .userDetailsService(userDetailsService)
-
+                // -----------------------登出-----------------
+                .and()
+                .logout()
+                    //修改默认的退出 Url，例如修改为 /signout
+                   // .logoutUrl("/signout")
+                    .deleteCookies("JSESSIONID")
+                    .logoutSuccessHandler(logoutSuccessHandler)
                 // -----------------------token缓存超时-----------------
                 .and()
                 .sessionManagement()
@@ -103,7 +112,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     // 当达到最大值时，是否保留已经登录的用户
                     .maxSessionsPreventsLogin(false)
                     // 当达到最大值时，旧用户被踢出后的操作
-                    .expiredSessionStrategy(new CustomExpiredSessionStrategy());
+                    .expiredSessionStrategy(new CustomExpiredSessionStrategy())
+                    //获取session中所有的用户信息
+                    .sessionRegistry(sessionRegistry());
+
 
         // 关闭CSRF跨域
         http.csrf().disable();
@@ -147,6 +159,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
         handler.setPermissionEvaluator(new CustomPermissionEvaluator());
         return handler;
+    }
+
+    /**
+     * 注入获取session中所有的用户信息  工具类
+     * @return SessionRegistry实例
+     */
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
     }
 
 }

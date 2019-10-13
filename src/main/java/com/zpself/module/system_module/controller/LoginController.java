@@ -47,6 +47,12 @@ public class LoginController {
     public String invalid() {
         return "Session 已过期，请重新登录";
     }
+
+    @RequestMapping("/signout")
+    public String signout() {
+        return "login.html";
+    }
+
     //---------------------------------------------资源接口---------------------------------------------
     @RequestMapping("/admin")
     @ResponseBody
