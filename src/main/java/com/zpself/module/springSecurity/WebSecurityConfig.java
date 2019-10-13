@@ -1,5 +1,8 @@
 package com.zpself.module.springSecurity;
 
+import com.zpself.module.springSecurity.authenticationResultHandler.CustomAuthenticationFailureHandler;
+import com.zpself.module.springSecurity.authenticationResultHandler.CustomAuthenticationSuccessHandler;
+import com.zpself.module.springSecurity.authenticationResultHandler.CustomExpiredSessionStrategy;
 import com.zpself.module.springSecurity.verify.VerifyFilter;
 import com.zpself.module.springSecurity.verify.VerifyServlet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +27,18 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final CustomUserDetailsService userDetailsService;
+    private final DataSource dataSource;
+    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
     @Autowired
-    private CustomUserDetailsService userDetailsService;
-    @Autowired
-    private DataSource dataSource;
+    public WebSecurityConfig(CustomAuthenticationFailureHandler customAuthenticationFailureHandler, CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler, CustomUserDetailsService userDetailsService, DataSource dataSource) {
+        this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
+        this.customAuthenticationSuccessHandler = customAuthenticationSuccessHandler;
+        this.userDetailsService = userDetailsService;
+        this.dataSource = dataSource;
+    }
 
     /**
      * security的用户信息查询（密码+权限），密码解析配置
@@ -55,28 +66,44 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/getVerifyCode").permitAll()
-                // 如果有允许匿名的url，填在下面
+                // -----------------------允许匿名的url，填在下面--------------------
+                .antMatchers("/getVerifyCode","/login/invalid").permitAll()
 //                .antMatchers().permitAll()
                 .anyRequest().authenticated()
                 .and()
-                // 设置登陆页
+
+                // -----------------------设置登陆--------------------
                 .formLogin().loginPage("/login")
                 // 设置登陆成功页
-                .defaultSuccessUrl("/").permitAll()
-                .failureUrl("/login/error")
+//                .defaultSuccessUrl("/")
+//                .failureUrl("/login/error")
+                .successHandler(customAuthenticationSuccessHandler)
+                .failureHandler(customAuthenticationFailureHandler)
+                .permitAll()
                 // 自定义登陆用户名和密码参数，默认为username和password
 //                .usernameParameter("username")
 //                .passwordParameter("password")
                 .and()
                 .addFilterBefore(new VerifyFilter(), UsernamePasswordAuthenticationFilter.class)
                 .logout().permitAll()
-                // 自动登录
-                .and().rememberMe()
-                .tokenRepository(persistentTokenRepository())
-                // 有效时间：单位s
-                .tokenValiditySeconds(600)
-                .userDetailsService(userDetailsService);
+
+                // -----------------------自动登录-----------------
+                .and()
+                .rememberMe()
+                    .tokenRepository(persistentTokenRepository())
+                    // 有效时间：单位s
+                    .tokenValiditySeconds(600)
+                    .userDetailsService(userDetailsService)
+
+                // -----------------------token缓存超时-----------------
+                .and()
+                .sessionManagement()
+                    .invalidSessionUrl("/login/invalid")
+                    .maximumSessions(1)
+                    // 当达到最大值时，是否保留已经登录的用户
+                    .maxSessionsPreventsLogin(false)
+                    // 当达到最大值时，旧用户被踢出后的操作
+                    .expiredSessionStrategy(new CustomExpiredSessionStrategy());
 
         // 关闭CSRF跨域
         http.csrf().disable();

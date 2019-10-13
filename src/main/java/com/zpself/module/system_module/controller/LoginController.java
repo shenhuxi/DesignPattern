@@ -2,12 +2,14 @@ package com.zpself.module.system_module.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,12 +18,11 @@ import java.io.IOException;
 @Controller
 public class LoginController {
     private Logger logger = LoggerFactory.getLogger(LoginController.class);
-
+    //---------------------------------------------配置接口---------------------------------------------
     @RequestMapping("/login")
     public String showLogin() {
         return "login.html";
     }
-
 
     @RequestMapping("/")
     public String showHome() {
@@ -40,6 +41,13 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+    @RequestMapping("/login/invalid")
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public String invalid() {
+        return "Session 已过期，请重新登录";
+    }
+    //---------------------------------------------资源接口---------------------------------------------
     @RequestMapping("/admin")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
