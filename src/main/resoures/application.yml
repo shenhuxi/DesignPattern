@@ -61,5 +61,5 @@ jwt:
   header: Authorization
   secret: mySecret
   #token有效期一天 (这是自定义的)(秒)使用时*1000
-  expirationMilliSeconds: 86400
+  expirationMilliSeconds: 86400000
   tokenHead: "Bearer "
