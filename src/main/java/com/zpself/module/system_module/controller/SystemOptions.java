@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/sys")
+//@Controller
+//@RequestMapping("/sys")
 public class SystemOptions {
     private final SessionRegistry sessionRegistry;
 

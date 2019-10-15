@@ -1,5 +1,6 @@
 package com.zpself.module.springSecurity;
 
+import com.zpself.module.springSecurity.entity.SelfUserDetails;
 import com.zpself.module.system_module.entity.SysPermission;
 import com.zpself.module.system_module.entity.SysRole;
 import com.zpself.module.system_module.entity.SysUser;
@@ -8,23 +9,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 登录获取用户信息的service
  */
 @Slf4j
 @Service("userDetailsService")
-public class CustomUserDetailsService implements UserDetailsService {
+public class SelfUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
 
@@ -32,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        Set<GrantedAuthority> authorities = new HashSet<>();
         // 从数据库中取出用户信息
         SysUser user = userService.findByUserName(username);
         // 判断用户是否存在
@@ -52,6 +52,11 @@ public class CustomUserDetailsService implements UserDetailsService {
             }
         }
         // 返回UserDetails实现类
-        return new User(user.getName(), user.getPassword(), authorities);
+        SelfUserDetails selfUserDetails = new SelfUserDetails();
+        selfUserDetails.setId(user.getId());
+        selfUserDetails.setUsername(user.getName());
+        selfUserDetails.setPassword(user.getPassword());
+        selfUserDetails.setAuthorities(authorities);
+        return selfUserDetails;
     }
 }

@@ -55,3 +55,11 @@ spring:
     cache: false
   main:
     allow-bean-definition-overriding: true
+
+# JWT
+jwt:
+  header: Authorization
+  secret: mySecret
+  #token有效期一天
+  expiration: 86400
+  tokenHead: "Bearer "
