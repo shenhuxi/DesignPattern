@@ -32,12 +32,18 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
         SelfUserDetails userDetails = (SelfUserDetails) authentication.getPrincipal();
 
         String jwtToken = JwtTokenUtil.generateToken(userDetails.getUsername(), 150000);
-
+        //存储token的信息
         HashMap<String,Object> hash = new HashMap<>();
         hash.put("id",userDetails.getId());
         hash.put("username",userDetails.getUsername());
         hash.put("authorities",userDetails.getAuthorities());
         redisUtil.hset(jwtToken,hash);
+        //判断当前用户有没有登录过-----【这里好像不必要  --在过滤器，还是有必要】
+        if(redisUtil.hasKey("UserId_token_Collection",userDetails.getId().toString())){
+            String old_jwtToken = redisUtil.hget("UserId_token_Collection", userDetails.getId().toString()).toString();
+            redisUtil.deleteKey(old_jwtToken);
+        }
+        redisUtil.hset("UserId_token_Collection",userDetails.getId().toString(),jwtToken);
         httpServletResponse.getWriter().write(JSON.toJSONString(ResultVO.result(ResultEnum.USER_LOGIN_SUCCESS,jwtToken,true)));
     }
 }
