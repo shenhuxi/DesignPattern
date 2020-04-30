@@ -20,7 +20,7 @@
 
 
 -----------------------------4.建造者模式-----------------------------https://www.runoob.com/design-pattern/builder-pattern.html
-使用多个简单的对象一步一步构建成一个复杂的对象，它提供了一种创建对象的最佳方式。  ----【创建套餐】
+使用多个简单的对象一步一步构建成一个 --【复杂的对象，这是与工厂模式不同点】，它提供了一种创建对象的最佳方式。  ----【创建套餐】
 优点： 1、建造者独立，易扩展。 2、便于控制细节风险。
 缺点： 1、产品必须有共同点，范围有限制。 2、如内部变化复杂，会有很多的建造类。
 与工厂模式的区别是：建造者模式更加关注与零件装配的顺序。
@@ -48,24 +48,23 @@
 扩展：克隆
 浅复制：将一个对象复制后，基本数据类型的变量都会重新创建，而引用类型，指向的还是原对象所指向的。
 深复制：将一个对象复制后，不论是基本数据类型还有引用类型，都是重新创建的。简单来说，就是深复制进行了完全彻底的复制，而浅复制不彻底。
-    
-        /* 浅复制 */  
-    public Object clone() throws CloneNotSupportedException {  
-        Prototype proto = (Prototype) super.clone();  
-        return proto;  
-    }  
 
-    /* 深复制 */  
-    public Object deepClone() throws IOException, ClassNotFoundException {  
-  
-        /* 写入当前对象的二进制流 */  
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();  
-        ObjectOutputStream oos = new ObjectOutputStream(bos);  
-        oos.writeObject(this);  
-  
-        /* 读出二进制流产生的新对象 */  
-        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());  
-        ObjectInputStream ois = new ObjectInputStream(bis);  
-        return ois.readObject();  
-    }  
-  
+        /* 浅复制 */
+    public Object clone() throws CloneNotSupportedException {
+        Prototype proto = (Prototype) super.clone();
+        return proto;
+    }
+
+    /* 深复制 */
+    public Object deepClone() throws IOException, ClassNotFoundException {
+
+        /* 写入当前对象的二进制流 */
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeObject(this);
+
+        /* 读出二进制流产生的新对象 */
+        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bis);
+        return ois.readObject();
+    }
